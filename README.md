@@ -76,7 +76,7 @@ Predict cost overruns · Predict schedule delays · Early risk detection · Root
 
 Each module is owned by one team member and exposes its functionality through the shared API Gateway.
 
-### Module 1 — Project & Data Management *(Team Member 1 — this repo)*
+### Module 1 — Project & Data Management *(thorfinnn11)*
 - **Responsibilities:** Design & implement all core databases/schemas · APIs for Projects, Assets, Agencies, Milestones, Costs, Contracts, Users · data validation & deduplication · data import/export (CSV/Excel/JSON)
 - **Key Features:** Project CRUD & versioning, milestone & timeline management, cost & expenditure tracking, agency & contractor management, data quality checks
 - **Tech Stack:** FastAPI · PostgreSQL · SQLAlchemy · Pydantic · Alembic
