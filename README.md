@@ -136,11 +136,11 @@ The server will initialize on: **http://127.0.0.1:8000**
 
 ## ✅ Pre-Push Checklist
 
-- [ ] `git status` shows no `venv/` or `__pycache__/` entries
-- [ ] `.gitignore` includes `venv/`, `__pycache__/`, `*.pyc`, `.env`
-- [ ] No hardcoded DB credentials in `database.py` — pulled from `.env` instead
-- [ ] `app/__init__.py` exists alongside `models/`, `schemas/`, `api/` inits
-- [ ] `/docs` loads cleanly and every endpoint above responds as expected
+- [x] `git status` shows no `venv/` or `__pycache__/` entries
+- [x] `.gitignore` includes `venv/`, `__pycache__/`, `*.pyc`, `.env`
+- [x] No hardcoded DB credentials in `database.py` — pulled from `.env` instead
+- [x] `app/__init__.py` exists alongside `models/`, `schemas/`, `api/` inits
+- [x] `/docs` loads cleanly and every endpoint above responds as expected
 
 ---
 
