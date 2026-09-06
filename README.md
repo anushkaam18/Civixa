@@ -52,7 +52,7 @@ All six modules communicate through a single **FastAPI REST API Gateway**. Share
 | 3 | Civic Memory & Infrastructure Graph | Relational/graph history: complaints, repairs, inspections, previous failures, event timeline | 🟡 Planned |
 | 4 | AI/ML Risk Prediction Engine | Pattern detection, risk scoring, cost/schedule overrun prediction, explainable AI (SHAP) | 🟡 Planned |
 | 5 | Alerts, Early Warning & Reports | Early warning system, rule engine, notifications, scheduled PDF reports | 🟡 Planned |
-| 6 | UI/UX & Main Dashboard | Next.js command center — project overview, GIS view, risk view, alerts, admin UI | 🟡 Planned |
+| 6 | UI/UX & Main Dashboard | Next.js command center — project overview, GIS view, risk view, alerts, admin UI | 🟢 **In Active Development** |
 
 ### Shared / Cross-Cutting Services
 - **Auth:** JWT / Role-Based Access Control
