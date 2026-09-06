@@ -35,6 +35,28 @@ def create_milestone_for_project(project_id: int, milestone_in: MilestoneCreate,
     if not project:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
 
+    # DEDUPLICATION CHECK 1: Sequence Order
+    seq_conflict = db.query(Milestone).filter(
+        Milestone.project_id == project_id,
+        Milestone.sequence_order == milestone_in.sequence_order
+    ).first()
+    if seq_conflict:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Milestone with sequence order {milestone_in.sequence_order} already exists for this project ('{seq_conflict.title}')."
+        )
+
+    # DEDUPLICATION CHECK 2: Title
+    title_conflict = db.query(Milestone).filter(
+        Milestone.project_id == project_id,
+        Milestone.title == milestone_in.title
+    ).first()
+    if title_conflict:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Milestone with title '{milestone_in.title}' already exists for this project."
+        )
+
     db_milestone = Milestone(**milestone_in.model_dump(), project_id=project_id)
     db.add(db_milestone)
     db.commit()
@@ -58,6 +80,19 @@ def update_milestone(milestone_id: int, milestone_in: MilestoneUpdate, db: Sessi
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Milestone not found")
 
     update_data = milestone_in.model_dump(exclude_unset=True)
+
+    # If updating sequence_order, ensure it doesn't conflict with another milestone in the same project
+    if "sequence_order" in update_data and update_data["sequence_order"] != milestone.sequence_order:
+        seq_conflict = db.query(Milestone).filter(
+            Milestone.project_id == milestone.project_id,
+            Milestone.sequence_order == update_data["sequence_order"],
+            Milestone.id != milestone.id
+        ).first()
+        if seq_conflict:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Cannot change sequence to {update_data['sequence_order']} — already assigned to '{seq_conflict.title}'."
+            )
     
     # If marking as ACHIEVED and achieved_date wasn't explicitly given, auto-set now
     if update_data.get("status") == MilestoneStatus.ACHIEVED and not update_data.get("achieved_date"):
